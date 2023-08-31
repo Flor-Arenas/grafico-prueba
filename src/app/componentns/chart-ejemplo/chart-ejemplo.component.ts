@@ -35,6 +35,10 @@ export type ChartOptions = {
 export class ChartEjemploComponent {
   
   @ViewChild("chart", { static: false }) chart!: ChartComponent;
+  //public chartOptions!: Partial<ChartOptions>;
+
+  public chartOptions!: ChartOptions;
+  public activeOptionButton = "all";
 
   public updateOptionsData = {
     "1m": {
@@ -68,11 +72,6 @@ export class ChartEjemploComponent {
       }
     }
   };
-
-  //public chartOptions!: Partial<ChartOptions>;
-
-  public chartOptions!: ChartOptions;
-  public activeOptionButton = "all";
 
   constructor(){
     
@@ -147,6 +146,7 @@ export class ChartEjemploComponent {
 
   public updateOptions(option: any): void {
     this.activeOptionButton = option;
-    this.chart.updateOptions(this.updateOptionsData[option], false, true, true);
+    var json=JSON.parse(JSON.stringify(this.updateOptionsData))[option];
+    this.chart.updateOptions(json, false, true, true);
   }
 }
